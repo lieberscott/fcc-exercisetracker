@@ -4,11 +4,14 @@ let mongoose = require("mongoose");
 let Schema = mongoose.Schema;
 
 let UserSchema = new Schema({
-  long: {
+  username: {
     type: String,
     required: true
   },
-  short: Number
+  exercises: [{
+    desc: String,
+    duration: Number
+  }]
 });
 
-let Url = mongoose.model("Url", UrlSchema);
+let User = mongoose.model("User", UserSchema);
