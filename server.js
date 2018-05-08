@@ -19,16 +19,15 @@ app.get('/', (req, res) => {
 // dude, the problem seems to be inability to connect with Mongo server. not a port iss
 
 
+//-- my code --//
+
 let newUser = require("./newUser.js");
-let redirectAction = require("./redirectAction.js");
 
-app.post("/api/shorturl/new", urlShortener.createShort);
-
-app.get("/api/shorturl/:short", redirectAction.redirect);
+app.post("/api/exercise/new-user", newUser.createUser);
 
 
 
-
+//-- end my code --//
 
 // Not found middleware
 app.use((req, res, next) => {

@@ -24,7 +24,7 @@ let User = mongoose.model("User", UserSchema);
 let createUser = function(req, res) {
   let newuser = req.body.username; // captures input field of form; "username" here matches <input name="username"> in index.html file
   
-  checkRepeat(newuser)
+  checkRepeat(newuser);
   
   async function checkRepeat(username) { // check if url is already in database
     let check = await User.findOne({username: username});
@@ -40,7 +40,7 @@ let createUser = function(req, res) {
     }
   };
   
-  async function addUser(username) {
+  function addUser(username) {
     let newentry = new User({
         username: username
       });
