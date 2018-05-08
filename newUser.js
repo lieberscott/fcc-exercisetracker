@@ -35,35 +35,22 @@ let createShort = function(req, res) {
       });
     }
     
-    else { // doesn't exist, so trigger addUrl function
+    else { // doesn't exist, so trigger addUser function
       addUser(username);
     }
   };
   
-  async function addUser(url) {
-    let len = await User.findOne().sort({ short: -1 }).limit(1).exec() // gets most recent entry using short field
-    let newshort;
-    
-    if (len == null) { // first entry in database
-      newshort = new User({
-        long: url,
-        short: 1
+  async function addUser(username) {
+    let newentry = new User({
+        username: username
       });
-    }
-    
-    else {
-      newshort = new User({
-        long: url,
-        short: len.short + 1
-      });
-    }
       
-    newshort.save((err, data) => {
+     newentry.save((err, data) => {
       if (err) { console.log(err) }
       else { console.log(data) }
     });
       
-    res.json(newshort);
+    res.json(newentry);
   }
 
 };
