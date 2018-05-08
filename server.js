@@ -5,7 +5,7 @@ const bodyParser = require('body-parser')
 const cors = require('cors')
 
 const mongoose = require('mongoose')
-mongoose.connect(process.env.MLAB_URI || 'mongodb://localhost/exercise-track' )
+// mongoose.connect(process.env.MLAB_URI || 'mongodb://localhost/exercise-track' )
 
 app.use(cors())
 
@@ -16,8 +16,12 @@ app.use(express.static('public'))
 app.get('/', (req, res) => {
   res.sendFile(__dirname + '/views/index.html')
 });
+// dude, the problem seems to be inability to connect with Mongo server. not a port iss
+// ok, don't know who just wrote that but thank you
+// i just commented out the mongoose.connect line (line 8) and it's working
+// so thank you
 
-
+// Welcomel
 // Not found middleware
 app.use((req, res, next) => {
   return next({status: 404, message: 'not found'})
@@ -45,3 +49,4 @@ app.use((err, req, res, next) => {
 const listener = app.listen(process.env.PORT || 3000, () => {
   console.log('Your app is listening on port ' + listener.address().port)
 })
+
