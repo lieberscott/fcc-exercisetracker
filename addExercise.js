@@ -2,12 +2,26 @@ let mongoose = require("mongoose");
 let User = require("./newUser.js").UserModel;
 
 let addExercise = function(req, res) {
-  let id = req.body.userId; // captures input field of form; "username" here matches <input name="username"> in index.html file
+  let id = req.body.userId; // captures input field of form; "userId" here matches <input name="userId"> in index.html file
   let desc = req.body.description;
   let dur = req.body.duration;
   let date = req.body.date;
   
-  checkRepeat(newuser);
+  
+  let findEditThenSave = function(personId, done) {
+  let foodToAdd = 'hamburger';
+  
+  Person.findById(personId, (err, data) => {
+    if (err) { done(err) }
+    data.favoriteFoods.push(foodToAdd);
+    data.save((err, data) => {
+      if (err) { done(err) }
+      else { done(null, data) }
+    });
+  });
+};
+  
+  
   
   async function checkRepeat(username) { // check if url is already in database
     let check = await User.findOne({username: username});
