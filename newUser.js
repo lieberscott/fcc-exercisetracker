@@ -21,7 +21,7 @@ let UserSchema = new Schema({
 let User = mongoose.model("User", UserSchema);
 
 
-let createShort = function(req, res) {
+let createUser = function(req, res) {
   let newuser = req.body.username; // captures input field of form; "username" here matches <input name="username"> in index.html file
   
   checkRepeat(newuser)
@@ -54,3 +54,9 @@ let createShort = function(req, res) {
   }
 
 };
+
+
+//----------- Do not edit below this line -----------//
+
+exports.UserModel = User; // UserModel will be how it is imported in other documents such as redirectAction.js
+exports.createUser = createUser;
