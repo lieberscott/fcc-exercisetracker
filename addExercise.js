@@ -8,18 +8,17 @@ let addExercise = function(req, res) {
   let date = req.body.date;
   
   
-//   let findEditThenSave = function(personId, done) {
-//   let foodToAdd = 'hamburger';
+  let findEditThenSave = function(id, desc, dur, date, done) {
   
-//   Person.findById(personId, (err, data) => {
-//     if (err) { done(err) }
-//     data.favoriteFoods.push(foodToAdd);
-//     data.save((err, data) => {
-//       if (err) { done(err) }
-//       else { done(null, data) }
-//     });
-//   });
-// };
+  User.findById(id, (err, data) => {
+    if (err) { done(err) }
+    data.exercise.push(foodToAdd);
+    data.save((err, data) => {
+      if (err) { done(err) }
+      else { done(null, data) }
+    });
+  });
+};
   
   
   
