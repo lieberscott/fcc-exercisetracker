@@ -17,11 +17,7 @@ app.get('/', (req, res) => {
   res.sendFile(__dirname + '/views/index.html')
 });
 // dude, the problem seems to be inability to connect with Mongo server. not a port iss
-// ok, don't know who just wrote that but thank you
-// i just commented out the mongoose.connect line (line 8) and it's working
-// so thank you
 
-// Welcomel
 // Not found middleware
 app.use((req, res, next) => {
   return next({status: 404, message: 'not found'})
