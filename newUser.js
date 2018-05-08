@@ -10,7 +10,11 @@ let UserSchema = new Schema({
   },
   exercises: [{
     desc: String,
-    duration: Number
+    duration: Number,
+    date: {
+      type: Date,
+      default: Date.now()
+    }
   }]
 });
 
