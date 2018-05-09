@@ -14,23 +14,28 @@ let addExercise = function(req, res) {
   
     User.findById(id, (err, data) => {
       if (err) {
-        res.json({ Error: 
-        done(err)
+        res.json({ Error: "ID not found" });
+        done(err);
       }
+      
       data.exercises.push({
         desc: desc,
         duration: dur,
         date: date
       });
+      
       data.save((err, data) => {
-        if (err) { done(err) }
-        else { done(null, data) }
+        if (err) {
+          res.json({ Error: "Data not saved. Please try again." });
+          done(err);
+        }
+        else {
+          res.json({ Response: "Exercise saved" });
+          done(null, data)
+        }
       });
     });
   };
-      
-  res.json({ Response: "Exercise saved" });
-
 };
 
 
