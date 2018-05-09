@@ -3,7 +3,7 @@
 let mongoose = require("mongoose");
 let Schema = mongoose.Schema;
 
-let UserSchema = new Schema({
+let ExerciserSchema = new Schema({
   username: {
     type: String,
     required: true
@@ -18,16 +18,16 @@ let UserSchema = new Schema({
   }]
 });
 
-let User = mongoose.model("User", UserSchema);
+let Exerciser = mongoose.model("Exerciser", ExerciserSchema);
 
 
-let createUser = function(req, res) {
-  let newuser = req.body.username; // captures input field of form; "username" here matches <input name="username"> in index.html file
+let createExerciser = function(req, res) {
+  let newexerciser = req.body.username; // captures input field of form; "username" here matches <input name="username"> in index.html file
   
-  checkRepeat(newuser);
+  checkRepeat(newexerciser);
   
-  async function checkRepeat(username) { // check if url is already in database
-    let check = await User.findOne({username: username});
+  async function checkRepeat(exerciser) { // check if exerciser is already in database
+    let check = await Exerciser.findOne({username: exerciser});
 
     if (check) { // username already exists
       res.json({
@@ -36,12 +36,12 @@ let createUser = function(req, res) {
     }
     
     else { // doesn't exist, so trigger addUser function
-      addUser(username);
+      addExerciser(exerciser);
     }
   };
   
-  function addUser(username) {
-    let newentry = new User({
+  function addExerciser(username) {
+    let newentry = new Exerciser({
         username: username
       });
       
@@ -58,5 +58,5 @@ let createUser = function(req, res) {
 
 //----------- Do not edit below this line -----------//
 
-exports.UserModel = User; // UserModel will be how it is imported in other documents such as redirectAction.js
-exports.createUser = createUser;
+exports.ExerciserModel = Exerciser; // UserModel will be how it is imported in other documents such as redirectAction.js
+exports.createExerciser = createExerciser;

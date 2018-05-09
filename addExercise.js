@@ -1,5 +1,5 @@
 let mongoose = require("mongoose");
-let User = require("./newUser.js").UserModel;
+let Exerciser = require("./newUser.js").ExerciserModel;
 
 let addExercise = function(req, res) {
   let id = req.body.userId; // captures input field of form; "userId" here matches <input name="userId"> in index.html file
@@ -12,7 +12,7 @@ let addExercise = function(req, res) {
   
   let findEditThenSave = function(id, desc, dur, date, done) {
   
-    User.findById(id, (err, data) => {
+    Exerciser.findById(id, (err, data) => {
       if (err) {
         res.json({ Error: "ID not found" });
         done(err);

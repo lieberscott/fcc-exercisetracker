@@ -5,7 +5,7 @@ const bodyParser = require('body-parser')
 const cors = require('cors')
 
 const mongoose = require('mongoose')
-// mongoose.connect(process.env.MLAB_URI || 'mongodb://localhost/exercise-track' )
+mongoose.connect(process.env.MLAB_URI || 'mongodb://localhost/exercise-track' )
 
 app.use(cors())
 
@@ -23,7 +23,7 @@ app.get('/', (req, res) => {
 
 let newUser = require("./newUser.js");
 
-app.post("/api/exercise/new-user", newUser.createUser);
+app.post("/api/exercise/new-user", newUser.createExerciser);
 
 
 
