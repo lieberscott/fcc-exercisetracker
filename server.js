@@ -22,6 +22,7 @@ app.get('/', (req, res) => {
 //-- my code --//
 
 let newUser = require("./newUser.js");
+let addExercise = require("./addExercise.js");
 
 app.post("/api/exercise/new-user", newUser.createExerciser);
 
