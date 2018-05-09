@@ -5,6 +5,24 @@ let addExercise = function(req, res) {
   let id = req.body.userId; // captures input field of form; "userId" here matches <input name="userId"> in index.html file
   let desc = req.body.description;
   let dur = req.body.duration;
+  
+  let defaultDate = new Date();
+  let day = defaultDate.getDate();
+  
+  if (day < 10) {
+    day = "0" + day;
+  }
+  
+  let month = defaultDate.getMonth() + 1;
+  
+  if (month < 10) {
+    month + "0" + month;
+  }
+  
+  let year = defaultDate.getFullYear();
+  
+  defaultDate = year + "-" + month + "-" + day;
+  
   let date = req.body.date;
   
   let findEditThenSave = function(id, desc, dur, date, done) {
