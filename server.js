@@ -27,6 +27,7 @@ let addExercise = require("./addExercise.js");
 app.post("/api/exercise/new-user", newUser.createExerciser);
 app.post("/api/exercise/add", addExercise.addExercise);
 
+// app.get("/api/exercise/log?{userId}[&from][&to][&limit]");
 
 //-- end my code --//
 
