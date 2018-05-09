@@ -28,7 +28,7 @@ let lookup = require("./lookup.js");
 app.post("/api/exercise/new-user", newUser.createExerciser);
 app.post("/api/exercise/add", addExercise.addExercise);
 
-app.get("/api/exercise/log?userId&from&to&limit", lookup.lookup);
+app.get("/api/exercise/log", lookup.lookup);
 
 //-- end my code --//
 

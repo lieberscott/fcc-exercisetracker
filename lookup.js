@@ -15,12 +15,18 @@ let lookup = function(req, res) {
   
     let user = await Exerciser.findById(id);
     
-    let info = user.exercises.date({ "$gte": from, "$lte": to }).limit(limit).exec((err, data) => {
+    console.log(user);
+    
+    let info = user.exercises.find( { "date": { "$gte": new Date(from), "$lte": new Date(to) } } ).limit(limit).exec((err, data) => {
       if (err) {
         console.log(err);
         res.json({ Error: "Data not found" })
+        done(err);
       }
-      else { res.json(data) }
+      else {
+        res.json(data);
+        done(null, data);
+      }
     });
     
 //     , (err, data) => {
