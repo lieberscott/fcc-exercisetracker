@@ -6,7 +6,7 @@ let addExercise = function(req, res) {
   let desc = req.body.description;
   let dur = req.body.duration;
   
-  let defaultDate = new Date();
+  let defaultDate = new Date(); // in case user doesn't enter date
   let day = defaultDate.getDate();
   
   if (day < 10) {
@@ -16,14 +16,15 @@ let addExercise = function(req, res) {
   let month = defaultDate.getMonth() + 1;
   
   if (month < 10) {
-    month + "0" + month;
+    month = "0" + month;
   }
   
   let year = defaultDate.getFullYear();
   
   defaultDate = year + "-" + month + "-" + day;
   
-  let date = req.body.date;
+  let date = req.body.date || defaultDate;
+  console.log(date);
   
   let findEditThenSave = function(id, desc, dur, date, done) {
   
