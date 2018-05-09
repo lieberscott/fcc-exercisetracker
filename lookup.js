@@ -17,15 +17,15 @@ let lookup = function(req, res) {
     
     console.log(user);
     
-    let info = user.exercises.find( { "date": { "$gte": from, "$lte": to } } ).limit(limit).exec((err, data) => {
+    let info = e.find( { "date": { "$gte": from, "$lte": to } } ).limit(limit).exec((err, data) => {
       if (err) {
         console.log(err);
         res.json({ Error: "Data not found" })
-        done(err);
+        return done(err);
       }
       else {
         res.json(data);
-        done(null, data);
+        return done(null, data);
       }
     });
     
