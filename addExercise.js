@@ -21,7 +21,7 @@ let addExercise = function(req, res) {
   
   let year = defaultDate.getFullYear();
   
-  defaultDate = year + "-" + month + "-" + day;
+  defaultDate = new Date(year + "-" + month + "-" + day);
   
   let date = req.body.date || defaultDate;
   console.log(date);
