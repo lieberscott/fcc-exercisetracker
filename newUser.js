@@ -13,7 +13,7 @@ let ExerciserSchema = new Schema({
     duration: Number,
     date: {
       type: Date,
-      default: new Date()
+      default: Date.now()
     }
   }]
 });

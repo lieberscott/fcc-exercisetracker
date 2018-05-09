@@ -4,26 +4,8 @@ let Exerciser = require("./newUser.js").ExerciserModel;
 let addExercise = function(req, res) {
   let id = req.body.userId; // captures input field of form; "userId" here matches <input name="userId"> in index.html file
   let desc = req.body.description;
-  let dur = req.body.duration;
-  
-  let defaultDate = new Date(); // in case user doesn't enter date
-  let day = defaultDate.getDate();
-  
-  if (day < 10) {
-    day = "0" + day;
-  }
-  
-  let month = defaultDate.getMonth() + 1;
-  
-  if (month < 10) {
-    month = "0" + month;
-  }
-  
-  let year = defaultDate.getFullYear();
-  
-  defaultDate = new Date(year + "-" + month + "-" + day);
-  
-  let date = req.body.date || defaultDate;
+  let dur = req.body.duration;  
+  let date = req.body.date || Date.now();
   console.log(date);
   
   let findEditThenSave = function(id, desc, dur, date, done) {
