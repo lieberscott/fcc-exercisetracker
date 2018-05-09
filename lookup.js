@@ -4,20 +4,20 @@ let Exerciser = require("./newUser.js").ExerciserModel;
 let lookup = function(req, res) {
   console.log("hello1");
   let id = req.query.userId; // "userId" here matches <www....&userId="> in url
-  let from = req.query.from;
-  let to = req.query.to;
-  let limit = req.query.limit;
+  let from = new Date(req.query.from).getTime();
+  let to = new Date(req.query.to).getTime();
+  let limit = parseInt(req.query.limit);
   
+  console.log(from);
+  console.log(to);
   
   async function findData(id, from, to, limit, done) {
-    
-    console.log("hello2");
   
     let user = await Exerciser.findById(id);
     
     console.log(user);
     
-    let info = user.exercises.find( { "date": { "$gte": from.getTime(), "$lte": to.getTime() } } ).limit(limit).exec((err, data) => {
+    let info = user.exercises.find( { "date": { "$gte": from, "$lte": to } } ).limit(limit).exec((err, data) => {
       if (err) {
         console.log(err);
         res.json({ Error: "Data not found" })
