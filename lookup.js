@@ -2,6 +2,7 @@ let mongoose = require("mongoose");
 let Exerciser = require("./newUser.js").ExerciserModel;
 
 let lookup = function(req, res) {
+  console.log("hello1");
   let id = req.query.userId; // "userId" here matches <www....&userId="> in url
   let from = req.query.from;
   let to = req.query.to;
@@ -9,15 +10,27 @@ let lookup = function(req, res) {
   
   
   async function findData(id, from, to, limit, done) {
+    
+    console.log("hello2");
   
-    let user = await Exerciser.findById(id, (err, data) => {
+    let user = await Exerciser.findById(id);
+    
+    let info = user.exercises.date({ "$gte": from, "$lte": to }).limit(limit).exec((err, data) => {
       if (err) {
-        res.json({ Error: "ID not found" });
-        done(err);
+        console.log(err);
+        res.json({ Error: "Data not found" })
       }
-      
-      
+      else { res.json(data) }
     });
+    
+//     , (err, data) => {
+//       if (err) {
+//         res.json({ Error: "ID not found" });
+//         done(err);
+//       }
+      
+      
+//     });
   };
   
   findData(id, from, to, limit);
@@ -38,4 +51,4 @@ let lookup = function(req, res) {
 
 //----------- Do not edit below this line -----------//
 
-exports.lookup = lookup; // addExercise will be how it is imported in other documents such as server.js
+exports.lookup = lookup; // lookup will be how it is imported in other documents such as server.js

@@ -23,11 +23,12 @@ app.get('/', (req, res) => {
 
 let newUser = require("./newUser.js");
 let addExercise = require("./addExercise.js");
+let lookup = require("./lookup.js");
 
 app.post("/api/exercise/new-user", newUser.createExerciser);
 app.post("/api/exercise/add", addExercise.addExercise);
 
-// app.get("/api/exercise/log?{userId}[&from][&to][&limit]");
+app.get("/api/exercise/log?userId&from&to&limit", lookup.lookup);
 
 //-- end my code --//
 
