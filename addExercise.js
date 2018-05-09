@@ -7,52 +7,33 @@ let addExercise = function(req, res) {
   let dur = req.body.duration;
   let date = req.body.date;
   
+  findEditThenSave(id, desc, dur, date);
+  
   
   let findEditThenSave = function(id, desc, dur, date, done) {
   
-  User.findById(id, (err, data) => {
-    if (err) { done(err) }
-    data.exercise.push(foodToAdd);
-    data.save((err, data) => {
-      if (err) { done(err) }
-      else { done(null, data) }
-    });
-  });
-};
-  
-  
-  
-  async function checkRepeat(username) { // check if url is already in database
-    let check = await User.findOne({username: username});
-
-    if (check) { // username already exists
-      res.json({
-        Error: "Username already in use. Please select another."
+    User.findById(id, (err, data) => {
+      if (err) {
+        res.json({ Error: 
+        done(err)
+      }
+      data.exercises.push({
+        desc: desc,
+        duration: dur,
+        date: date
       });
-    }
-    
-    else { // doesn't exist, so trigger addUser function
-      addUser(username);
-    }
+      data.save((err, data) => {
+        if (err) { done(err) }
+        else { done(null, data) }
+      });
+    });
   };
-  
-  function addUser(username) {
-    let newentry = new User({
-        username: username
-      });
       
-     newentry.save((err, data) => {
-      if (err) { console.log(err) }
-      else { console.log(data) }
-    });
-      
-    res.json(newentry);
-  }
+  res.json({ Response: "Exercise saved" });
 
 };
 
 
 //----------- Do not edit below this line -----------//
 
-exports.UserModel = User; // UserModel will be how it is imported in other documents such as redirectAction.js
-exports.createUser = createUser;
+exports.addExercise = addExercise; // addExercise will be how it is imported in other documents such as server.js
