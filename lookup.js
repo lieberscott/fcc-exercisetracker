@@ -8,9 +8,11 @@ let lookup = function(req, res) {
   let limit = req.query.limit;
   
   
-  let findData = function(id, from, to, limit, done) {
+  async function findData(id, from, to, limit, done) {
   
-    Exerciser.findById(id, (err, data) => {
+    let user = await Exerciser.findById(id);
+    
+    , (err, data) => {
       if (err) {
         res.json({ Error: "ID not found" });
         done(err);
@@ -23,6 +25,17 @@ let lookup = function(req, res) {
   findData(id, from, to, limit);
 
 };
+
+// let queryChain = function(done) {
+//   let foodToSearch = "burrito";
+  
+//   let burritoLovers = Person.find({favoriteFoods: foodToSearch});
+  
+//   burritoLovers.sort({ name: "asc" }).limit(2).select("-age").exec((err, data) => {
+//     if (err) { done(err) }
+//     else { done(null, data) }
+//   });
+// };
 
 
 //----------- Do not edit below this line -----------//
