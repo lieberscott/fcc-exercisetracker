@@ -7,9 +7,6 @@ let addExercise = function(req, res) {
   let dur = req.body.duration;
   let date = req.body.date;
   
-  findEditThenSave(id, desc, dur, date);
-  
-  
   let findEditThenSave = function(id, desc, dur, date, done) {
   
     Exerciser.findById(id, (err, data) => {
@@ -36,6 +33,9 @@ let addExercise = function(req, res) {
       });
     });
   };
+  
+  findEditThenSave(id, desc, dur, date);
+
 };
 
 

@@ -25,7 +25,7 @@ let newUser = require("./newUser.js");
 let addExercise = require("./addExercise.js");
 
 app.post("/api/exercise/new-user", newUser.createExerciser);
-
+app.post("/api/exercise/add", addExercise.addExercise);
 
 
 //-- end my code --//
