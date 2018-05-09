@@ -10,9 +10,7 @@ let lookup = function(req, res) {
   
   async function findData(id, from, to, limit, done) {
   
-    let user = await Exerciser.findById(id);
-    
-    , (err, data) => {
+    let user = await Exerciser.findById(id, (err, data) => {
       if (err) {
         res.json({ Error: "ID not found" });
         done(err);
