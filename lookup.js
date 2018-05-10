@@ -4,12 +4,26 @@ let Exerciser = require("./newUser.js").ExerciserModel;
 let lookup = function(req, res) {
   console.log("hello1");
   let id = req.query.userId; // "userId" here matches <www....&userId="> in url
-  let from = Date.parse(req.query.from); // converted to milliseconds sinc Jan. 1, 1970
-  let to = Date.parse(req.query.to); // converted to milliseconds since Jan. 1, 1970
+  
+  let from = req.query.from; // converted to milliseconds sinc Jan. 1, 1970
+  let arrfrom = from.split("-");// || new Date();
+  let fromyear = parseInt(arrfrom[0]);
+  let frommonth = parseInt(arrfrom[1]) - 1;
+  let fromday = parseInt(arrfrom[2]);
+  let fromdate = new Date(fromyear, frommonth, fromday);
+  
+  let to = req.query.to; // converted to milliseconds since Jan. 1, 1970
+  let arrto = to.split("-");// || new Date();
+  let toyear = parseInt(arrto[0]);
+  let tomonth = parseInt(arrto[1]) - 1;
+  let today = parseInt(arrto[2]);
+  let todate = new Date(toyear, tomonth, today);
+  
+  
   let limit = parseInt(req.query.limit);
   
-  console.log(from);
-  console.log(to);
+  console.log(fromdate);
+  console.log(todate);
   
   async function findData(id, from, to, limit, done) {
   
@@ -40,7 +54,7 @@ let lookup = function(req, res) {
 //     });
   };
   
-  findData(id, from, to, limit);
+  findData(id, fromdate, todate, limit);
 
 };
 

@@ -10,7 +10,7 @@ let addExercise = function(req, res) {
   let year = parseInt(arrdate[0]);
   let month = parseInt(arrdate[1]) - 1;
   let day = parseInt(arrdate[2]);
-  let date = new Date(year, month, day) || new Date();
+  let date = new Date(year, month, day);
   
   let findEditThenSave = function(id, desc, dur, date, done) {
   
