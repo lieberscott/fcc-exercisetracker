@@ -16,6 +16,8 @@ let addExercise = function(req, res) {
         done(err);
       }
       
+      console.log(data);
+      
       data.exercises.push({
         desc: desc,
         duration: dur,
@@ -24,12 +26,13 @@ let addExercise = function(req, res) {
       
       data.save((err, data) => {
         if (err) {
+          console.log(err);
           res.json({ Error: "Data not saved. Please try again." });
-          done(err);
+          // done(err);
         }
         else {
           res.json({ Response: "Exercise saved" });
-          done(null, data)
+          // done(null, data)
         }
       });
     });
