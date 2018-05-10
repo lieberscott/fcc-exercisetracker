@@ -29,7 +29,8 @@ let lookup = function(req, res) {
   
     let user = await Exerciser.findOne(
       { "id": id },
-      { "exercises.date": { "$gte": from, "$lte": to } }
+      { "exercises.date": { "$gte": from } },
+      { "exercises.date": { "$lte": to } }
       ).exec((err, data) => {
     
     // let info = user.exercises.find( { "date": { "$gte": from, "$lte": to } } ).limit(limit).exec((err, data) => {
