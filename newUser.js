@@ -12,8 +12,8 @@ let ExerciserSchema = new Schema({
     desc: String,
     duration: Number,
     date: {
-      type: Number, // milliseconds since Jan 1, 1970
-      default: Date.now()
+      type: Date,
+      default: new Date()
     }
   }]
 });
