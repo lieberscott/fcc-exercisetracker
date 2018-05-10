@@ -5,7 +5,7 @@ let addExercise = function(req, res) {
   let id = req.body.userId; // captures input field of form; "userId" here matches <input name="userId"> in index.html file
   let desc = req.body.description;
   let dur = req.body.duration;  
-  let date = req.body.date || Date.now();
+  let date = Date.parse(req.body.date) || Date.now(); // saved as milliseconds from Jan. 1, 1970
   console.log(date);
   
   let findEditThenSave = function(id, desc, dur, date, done) {

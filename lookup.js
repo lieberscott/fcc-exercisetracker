@@ -4,8 +4,8 @@ let Exerciser = require("./newUser.js").ExerciserModel;
 let lookup = function(req, res) {
   console.log("hello1");
   let id = req.query.userId; // "userId" here matches <www....&userId="> in url
-  let from = new Date(req.query.from).getTime();
-  let to = new Date(req.query.to).getTime();
+  let from = Date.parse(req.query.from); // converted to milliseconds sinc Jan. 1, 1970
+  let to = Date.parse(req.query.to); // converted to milliseconds since Jan. 1, 1970
   let limit = parseInt(req.query.limit);
   
   console.log(from);
