@@ -5,8 +5,12 @@ let addExercise = function(req, res) {
   let id = req.body.userId; // captures input field of form; "userId" here matches <input name="userId"> in index.html file
   let desc = req.body.description;
   let dur = req.body.duration;  
-  let strdate = req.body.date;// || new Date();
-  let arrdate = strdate.split("-");
+  let arrdate = req.body.date.split("-");// || new Date();
+  // let arrdate = strdate.split("-");
+  let year = parseInt(arrdate[0]);
+  let month = parseInt(arrdate[1]) - 1;
+  let day = parseInt(arrdate[2]);
+  let date = new Date(year, month, day) || new Date();
   
   let findEditThenSave = function(id, desc, dur, date, done) {
   
