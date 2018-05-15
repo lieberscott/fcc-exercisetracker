@@ -28,12 +28,13 @@ let lookup = function(req, res) {
     console.log(from);
     console.log(to);
   
-    let user = await Exerciser.find(
-      { "id": id },
-      { "exercises.date": { "$gte": from.toString() }},
-      { "exercises.date": { "$lte": to.toString() }}
-      // { "exercises": { "$slice": limit }}
-    )
+    let user = Exerciser.find({
+      "id": id,
+      "exercises": {
+        "$elemMatch": { "date": { "$gte": from, "$lte": to } }
+      }
+        // "exercises": { "$slice": limit }
+    })
       // { "exercises.date": { "$gte": from } },
       // { "exercises.date": { "$lte": to } })
         .exec((err, data) => {
