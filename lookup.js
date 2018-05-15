@@ -31,7 +31,7 @@ let lookup = function(req, res) {
     let user = Exerciser.find({
       "id": id,
       "exercises": {
-        "$elemMatch": { "date": { "$gte": from, "$lte": to } }
+        "$elemMatch":{ "date": { "$gte": from, "$lte": to } }
       }
         // "exercises": { "$slice": limit }
     })
