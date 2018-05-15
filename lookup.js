@@ -11,7 +11,6 @@ let lookup = function(req, res) {
   let frommonth = parseInt(arrfrom[1]) - 1;
   let fromday = parseInt(arrfrom[2]);
   let fromdate = new Date(fromyear, frommonth, fromday);
-  console.log(fromdate);
   
   let to = req.query.to;
   let arrto = to.split("-") || new Date();
@@ -21,14 +20,13 @@ let lookup = function(req, res) {
   let todate = new Date(toyear, tomonth, today);
   
   
-  // let limit = parseInt(req.query.limit);
+  let limit = parseInt(req.query.limit);
+
   
-  // console.log(fromdate);
-  // console.log(todate);
-  
-  // async function findData(id, from, to, limit, done) {
-  findData(id);
-  async function findData(id, done) {
+  async function findData(id, from, to, limit, done) {
+  // async function findData(id, done) {
+    console.log(from);
+    console.log(to);
   
     let user = await Exerciser.findOne({ "id": id })
       // { "exercises.date": { "$gte": from } },
@@ -56,7 +54,7 @@ let lookup = function(req, res) {
       
 //     });
   };
-  
+  findData(id, fromdate, todate, limit);
   // findData(id, fromdate, todate, limit);
 
 };
