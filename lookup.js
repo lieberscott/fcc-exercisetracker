@@ -30,7 +30,8 @@ let lookup = function(req, res) {
   
     let user = await Exerciser.find(
       { "id": id },
-      { "exercises.date: { "$gte": from }}
+      { "exercises.date": { "$gte": from }},
+      { "exercises.date": { "$lte": to }}
       // { "exercises": { "$slice": limit }}
     )
       // { "exercises.date": { "$gte": from } },
