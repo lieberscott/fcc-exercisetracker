@@ -5,33 +5,32 @@ let lookup = function(req, res) {
   console.log("hello1");
   let id = req.query.userId; // "userId" here matches <www....&userId="> in url
   
-  let from = req.query.from; // converted to milliseconds sinc Jan. 1, 1970
+  let from = req.query.from;
   let arrfrom = from.split("-");// || new Date();
   let fromyear = parseInt(arrfrom[0]);
   let frommonth = parseInt(arrfrom[1]) - 1;
   let fromday = parseInt(arrfrom[2]);
   let fromdate = new Date(fromyear, frommonth, fromday);
   
-  let to = req.query.to; // converted to milliseconds since Jan. 1, 1970
-  let arrto = to.split("-");// || new Date();
-  let toyear = parseInt(arrto[0]);
-  let tomonth = parseInt(arrto[1]) - 1;
-  let today = parseInt(arrto[2]);
-  let todate = new Date(toyear, tomonth, today);
+//   let to = req.query.to; // converted to milliseconds since Jan. 1, 1970
+//   let arrto = to.split("-");// || new Date();
+//   let toyear = parseInt(arrto[0]);
+//   let tomonth = parseInt(arrto[1]) - 1;
+//   let today = parseInt(arrto[2]);
+//   let todate = new Date(toyear, tomonth, today);
   
   
-  let limit = parseInt(req.query.limit);
+  // let limit = parseInt(req.query.limit);
   
-  console.log(fromdate);
-  console.log(todate);
+  // console.log(fromdate);
+  // console.log(todate);
   
   async function findData(id, from, to, limit, done) {
   
-    let user = await Exerciser.findOne(
-      { "id": id },
-      { "exercises.date": { "$gte": from } },
-      { "exercises.date": { "$lte": to } }
-      ).exec((err, data) => {
+    let user = await Exerciser.findOne({ "id": id })
+      // { "exercises.date": { "$gte": from } },
+      // { "exercises.date": { "$lte": to } })
+        .exec((err, data) => {
     
     // let info = user.exercises.find( { "date": { "$gte": from, "$lte": to } } ).limit(limit).exec((err, data) => {
       if (err) {
@@ -55,7 +54,8 @@ let lookup = function(req, res) {
 //     });
   };
   
-  findData(id, fromdate, todate, limit);
+  findData(id);
+  // findData(id, fromdate, todate, limit);
 
 };
 
