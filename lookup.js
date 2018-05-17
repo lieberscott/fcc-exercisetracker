@@ -3,7 +3,7 @@ let Exerciser = require("./newUser.js").ExerciserModel;
 
 let lookup = function(req, res) {
   console.log("hello1");
-  let id = req.query.userId; // "userId" here matches <www....&userId="> in url
+  let id = req.query.userid; // "userId" here matches <www....&userId="> in url
   
   let from = req.query.from;
   let arrfrom = from.split("-");// || new Date();
@@ -31,13 +31,15 @@ let lookup = function(req, res) {
     
     
     let user = Exerciser.aggregate([
-    // Get just the docs that contain a shapes element where color is 'red'
-    {$match: {'exercises.date': { "$gte": from }}},
-    {$project: {
-        exercises: {$filter: {
-            input: '$exercises',
-            as: 'exercise',
-            cond: {$lte: ['$$exercise.date', to]}
+    // Got info here: https://stackoverflow.com/questions/3985214/retrieve-only-the-queried-element-in-an-object-array-in-mongodb-collection
+    { $match: { "username": id }},
+    { $project: { // $project passes along the documents with the requested fields to the next stage in the pipeline
+        exercises: { $filter: {
+          input: '$exercises',
+          as: 'exercise',
+          cond: { $lte: [ "$$exercise.date", to ] },
+          cond: { $gte: [ "$$exercise.date", from ] }
+          
         }},
         _id: 0
     }}
