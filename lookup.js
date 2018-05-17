@@ -35,11 +35,12 @@ let lookup = function(req, res) {
     { $match: { "username": id }},
     { $project: { // $project passes along the documents with the requested fields to the next stage in the pipeline
         exercises: { $filter: {
-          input: '$exercises',
-          as: 'exercise',
-          cond: { $lte: [ "$$exercise.date", to ] },
-          cond: { $gte: [ "$$exercise.date", from ] }
-          // _id: 0
+          input: "$exercises",
+          as: "exercise",
+          cond: { $and [
+                 
+          // cond: { $lte: [ "$$exercise.date", to ] },
+          // cond: { $gte: [ "$$exercise.date", from ] }
         }},
       username: 1,
       _id: 0
