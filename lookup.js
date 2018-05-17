@@ -2,7 +2,7 @@ let mongoose = require("mongoose");
 let Exerciser = require("./newUser.js").ExerciserModel;
 
 let lookup = function(req, res) {
-  let id = req.query.userid; // "userId" here matches <www....&userId="> in url
+  let id = req.query.userid; // "userid" here matches <www....&userId="> in url
   
   let from = req.query.from;
   let arrfrom = from.split("-");// || new Date();
