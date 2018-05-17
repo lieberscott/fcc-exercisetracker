@@ -2,7 +2,6 @@ let mongoose = require("mongoose");
 let Exerciser = require("./newUser.js").ExerciserModel;
 
 let lookup = function(req, res) {
-  console.log("hello1");
   let id = req.query.userid; // "userId" here matches <www....&userId="> in url
   
   let from = req.query.from;
@@ -24,33 +23,30 @@ let lookup = function(req, res) {
 
   
   async function findData(id, from, to, limit, done) {
-  // async function findData(id, done) {
-    console.log(from);
-    console.log(to);
-  
     
-        let user = Exerciser.aggregate([
-          // Got info here: https://stackoverflow.com/questions/3985214/retrieve-only-the-queried-element-in-an-object-array-in-mongodb-collection
-          { $match: { "username": id }},
-          { $project: { // $project passes along the documents with the requested fields to the next stage in the pipeline
-              exercises: { $filter: {
-                input: "$exercises",
-                as: "exercise",
-                cond: { $and: [
-                  { $lte: [ "$$exercise.date", to ] },
-                  { $gte: [ "$$exercise.date", from ] },
-                ]}
-              }},
-            username: 1,
-            _id: 0
-          }}
-      ]).exec((err, data) => {
-          
-          data = {
-            ...data[0],
-            exercises: data[0].exercises.slice(0, limit)
-          };
-    
+    let user = Exerciser.aggregate([
+      // Got info here: https://stackoverflow.com/questions/3985214/retrieve-only-the-queried-element-in-an-object-array-in-mongodb-collection
+      { $match: { "username": id }},
+      { $project: { // $project passes along the documents with the requested fields to the next stage in the pipeline
+          exercises: { $filter: {
+            input: "$exercises",
+            as: "exercise",
+            cond: { $and: [
+              { $lte: [ "$$exercise.date", to ] },
+              { $gte: [ "$$exercise.date", from ] },
+            ]}
+          }},
+        username: 1,
+        _id: 0
+      }}
+    ])
+    .exec((err, data) => {
+
+      data = {
+        ...data[0],
+        exercises: data[0].exercises.slice(0, limit)
+      };
+
       if (err) {
         console.log(err);
         res.json({ Error: "Data not found" })
@@ -62,23 +58,10 @@ let lookup = function(req, res) {
         return done(null, data);
       }
     });
-
   };
   findData(id, fromdate, todate, limit);
 
 };
-
-// let queryChain = function(done) {
-//   let foodToSearch = "burrito";
-  
-//   let burritoLovers = Person.find({favoriteFoods: foodToSearch});
-  
-//   burritoLovers.sort({ name: "asc" }).limit(2).select("-age").exec((err, data) => {
-//     if (err) { done(err) }
-//     else { done(null, data) }
-//   });
-// };
-
 
 //----------- Do not edit below this line -----------//
 
