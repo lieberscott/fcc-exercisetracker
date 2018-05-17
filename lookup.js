@@ -37,10 +37,10 @@ let lookup = function(req, res) {
         exercises: { $filter: {
           input: "$exercises",
           as: "exercise",
-          cond: { $and [
-                 
-          // cond: { $lte: [ "$$exercise.date", to ] },
-          // cond: { $gte: [ "$$exercise.date", from ] }
+          cond: { $and: [
+            { $lte: [ "$$exercise.date", to ] },
+            { $gte: [ "$$exercise.date", from ] },
+          ]}
         }},
       username: 1,
       _id: 0
