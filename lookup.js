@@ -29,23 +29,41 @@ let lookup = function(req, res) {
     console.log(to);
   
     
+        let user = Exerciser.aggregate([
+          // Got info here: https://stackoverflow.com/questions/3985214/retrieve-only-the-queried-element-in-an-object-array-in-mongodb-collection
+          { $match: { "username": id }},
+          { $project: { // $project passes along the documents with the requested fields to the next stage in the pipeline
+              exercises: { $filter: {
+                input: "$exercises",
+                as: "exercise",
+                cond: { $and: [
+                  { $lte: [ "$$exercise.date", to ] },
+                  { $gte: [ "$$exercise.date", from ] },
+                ]}
+              }},
+            username: 1,
+            _id: 0
+          }}
+      ])
     
-    let user = Exerciser.aggregate([
-    // Got info here: https://stackoverflow.com/questions/3985214/retrieve-only-the-queried-element-in-an-object-array-in-mongodb-collection
-    { $match: { "username": id }},
-    { $project: { // $project passes along the documents with the requested fields to the next stage in the pipeline
-        exercises: { $filter: {
-          input: "$exercises",
-          as: "exercise",
-          cond: { $and: [
-            { $lte: [ "$$exercise.date", to ] },
-            { $gte: [ "$$exercise.date", from ] },
-          ]}
-        }},
-      username: 1,
-      _id: 0
-    }}
-])
+    
+    
+//     let user = Exerciser.aggregate([
+//     // Got info here: https://stackoverflow.com/questions/3985214/retrieve-only-the-queried-element-in-an-object-array-in-mongodb-collection
+//     { $match: { "username": id }},
+//     { $project: { // $project passes along the documents with the requested fields to the next stage in the pipeline
+//         exercises: { $filter: {
+//           input: "$exercises",
+//           as: "exercise",
+//           cond: { $and: [
+//             { $lte: [ "$$exercise.date", to ] },
+//             { $gte: [ "$$exercise.date", from ] },
+//           ]}
+//         }},
+//       username: 1,
+//       _id: 0
+//     }}
+// ])
     
     /*
     let user = Exerciser.find({
