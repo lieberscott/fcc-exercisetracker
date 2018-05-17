@@ -32,12 +32,12 @@ let lookup = function(req, res) {
     
     let user = Exerciser.aggregate([
     // Get just the docs that contain a shapes element where color is 'red'
-    {$exercises: {'shapes.color': 'red'}},
+    {$match: {'exercises.date': { "$gte": from }}},
     {$project: {
-        shapes: {$filter: {
-            input: '$shapes',
-            as: 'shape',
-            cond: {$eq: ['$$shape.color', 'red']}
+        exercises: {$filter: {
+            input: '$exercises',
+            as: 'exercise',
+            cond: {$lte: ['$$exercise.date', to]}
         }},
         _id: 0
     }}
