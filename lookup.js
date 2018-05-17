@@ -39,9 +39,10 @@ let lookup = function(req, res) {
           as: 'exercise',
           cond: { $lte: [ "$$exercise.date", to ] },
           cond: { $gte: [ "$$exercise.date", from ] }
-          
+          // _id: 0
         }},
-        _id: 0
+      username: 1,
+      _id: 0
     }}
 ])
     
