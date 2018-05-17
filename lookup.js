@@ -28,6 +28,22 @@ let lookup = function(req, res) {
     console.log(from);
     console.log(to);
   
+    
+    
+    let user = Exerciser.aggregate([
+    // Get just the docs that contain a shapes element where color is 'red'
+    {$exercises: {'shapes.color': 'red'}},
+    {$project: {
+        shapes: {$filter: {
+            input: '$shapes',
+            as: 'shape',
+            cond: {$eq: ['$$shape.color', 'red']}
+        }},
+        _id: 0
+    }}
+])
+    
+    /*
     let user = Exerciser.find({
       "id": id,
       "exercises": {
@@ -37,6 +53,7 @@ let lookup = function(req, res) {
     })
       // { "exercises.date": { "$gte": from } },
       // { "exercises.date": { "$lte": to } })
+    */
         .exec((err, data) => {
     
     // let info = user.exercises.find( { "date": { "$gte": from, "$lte": to } } ).limit(limit).exec((err, data) => {
