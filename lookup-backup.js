@@ -1,3 +1,5 @@
+// lookup file without error checking for unfilled out search query parameters
+
 let mongoose = require("mongoose");
 let Exerciser = require("./newUser.js").ExerciserModel;
 

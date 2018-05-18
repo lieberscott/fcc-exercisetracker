@@ -4,6 +4,10 @@ let Exerciser = require("./newUser.js").ExerciserModel;
 let lookup = function(req, res) {
   let name = req.query.username; // "username" here matches <www....&username="> in url
   
+  if (!name) {
+    res.json({ Error: "Must include username=username" });
+  }
+  
   let from = req.query.from || 0;
   if (from) {
     let arrfrom = from.split("-");// || new Date();
