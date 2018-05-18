@@ -4,28 +4,22 @@ let Exerciser = require("./newUser.js").ExerciserModel;
 let lookup = function(req, res) {
   let name = req.query.username; // "username" here matches <www....&username="> in url
   
-  let from = req.query.from || null;
-  console.log(from);
-  if (from) {
-    let arrfrom = from.split("-");// || new Date();
-    let fromyear = parseInt(arrfrom[0]);
-    let frommonth = parseInt(arrfrom[1]) - 1;
-    let fromday = parseInt(arrfrom[2]);
-    from = new Date(fromyear, frommonth, fromday);
-  }
+  let from = req.query.from;
+  let arrfrom = from.split("-");// || new Date();
+  let fromyear = parseInt(arrfrom[0]);
+  let frommonth = parseInt(arrfrom[1]) - 1;
+  let fromday = parseInt(arrfrom[2]);
+  let fromdate = new Date(fromyear, frommonth, fromday);
   
-  let to = req.query.to || null;
-  console.log(to);
-  if (to) {
-    let arrto = to.split("-") || new Date();
-    let toyear = parseInt(arrto[0]);
-    let tomonth = parseInt(arrto[1]) - 1;
-    let today = parseInt(arrto[2]);
-    to = new Date(toyear, tomonth, today);
-  }
+  let to = req.query.to;
+  let arrto = to.split("-") || new Date();
+  let toyear = parseInt(arrto[0]);
+  let tomonth = parseInt(arrto[1]) - 1;
+  let today = parseInt(arrto[2]);
+  let todate = new Date(toyear, tomonth, today);
   
   
-  let limit = parseInt(req.query.limit) || null;
+  let limit = parseInt(req.query.limit);
 
   
   async function findData(name, from, to, limit, done) {
@@ -65,7 +59,7 @@ let lookup = function(req, res) {
       }
     });
   };
-  findData(name, from, to, limit);
+  findData(name, fromdate, todate, limit);
 
 };
 
