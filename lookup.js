@@ -4,8 +4,7 @@ let Exerciser = require("./newUser.js").ExerciserModel;
 let lookup = function(req, res) {
   let name = req.query.username; // "username" here matches <www....&username="> in url
   
-  let from = req.query.from || null;
-  console.log(from);
+  let from = req.query.from || 0;
   if (from) {
     let arrfrom = from.split("-");// || new Date();
     let fromyear = parseInt(arrfrom[0]);
@@ -15,7 +14,6 @@ let lookup = function(req, res) {
   }
   
   let to = req.query.to || null;
-  console.log(to);
   if (to) {
     let arrto = to.split("-") || new Date();
     let toyear = parseInt(arrto[0]);
@@ -23,7 +21,9 @@ let lookup = function(req, res) {
     let today = parseInt(arrto[2]);
     to = new Date(toyear, tomonth, today);
   }
-  
+  else {
+    to = new Date();
+  }
   
   let limit = parseInt(req.query.limit) || null;
 
@@ -47,11 +47,17 @@ let lookup = function(req, res) {
       }}
     ])
     .exec((err, data) => {
-
-      data = {
-        ...data[0],
-        exercises: data[0].exercises.slice(0, limit)
-      };
+      
+      if (limit) {
+        data = {
+          ...data[0],
+          exercises: data[0].exercises.slice(0, limit)
+        };
+      }
+      
+      else {
+        data = data[0]; // keep consistency of results being an object, not an array
+      }
 
       if (err) {
         console.log(err);
