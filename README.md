@@ -4,4 +4,6 @@ See project here: https://fcc-exercisetracker.glitch.me
 
 #### A microservice project, part of Free Code Camp's curriculum
 
+Uses MongoDB, Node, and Express
+
 
